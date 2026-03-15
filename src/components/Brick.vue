@@ -22,7 +22,7 @@ defineProps({
   border-radius: 8px;
   padding: 0.5rem;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: var(--brick-font-size, 1rem);
   line-height: 1.2;
   white-space: normal;
   word-break: break-word;

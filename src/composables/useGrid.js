@@ -5,6 +5,7 @@ const GAP = 16; // px
 export function useGrid(words, containerRef) {
   const columns = ref(1);
   const brickSize = ref(100);
+  const fontSize = ref(14);
 
   function calculateGrid() {
     const el = containerRef.value;
@@ -30,6 +31,7 @@ export function useGrid(words, containerRef) {
 
     columns.value = bestCols;
     brickSize.value = bestSize;
+    fontSize.value = Math.max(10, Math.floor(bestSize * 0.13));
   }
 
   let observer;
@@ -46,5 +48,5 @@ export function useGrid(words, containerRef) {
     observer?.disconnect();
   });
 
-  return { columns, brickSize, gap: GAP };
+  return { columns, brickSize, fontSize, gap: GAP };
 }
