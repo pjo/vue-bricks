@@ -14,6 +14,7 @@ export function useGrid(words, containerRef) {
     if (vh === undefined) vh = el.clientHeight;
     const N = words.value.length;
 
+    let bestScore = 0;
     let bestSize = 0;
     let bestCols = 1;
 
@@ -23,7 +24,11 @@ export function useGrid(words, containerRef) {
       const maxHeight = (vh - (rows - 1) * GAP) / rows;
       const size = Math.floor(Math.min(maxWidth, maxHeight));
 
-      if (size > bestSize) {
+      const lastRowFill = N % cols === 0 ? 1 : (N % cols) / cols;
+      const score = size * (0.8 + 0.2 * lastRowFill);
+
+      if (score > bestScore) {
+        bestScore = score;
         bestSize = size;
         bestCols = cols;
       }
@@ -35,6 +40,8 @@ export function useGrid(words, containerRef) {
   }
 
   let observer;
+
+  watch(() => words.value.length, () => calculateGrid());
 
   watch(containerRef, (el) => {
     observer?.disconnect();

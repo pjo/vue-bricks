@@ -24,6 +24,11 @@
           </div>
 
         </div>
+
+        <div class="controls">
+          <input type="range" min="1" :max="wordList.length" v-model.number="count" />
+          <span>{{ count }}</span>
+        </div>
       </div>
     </v-main>
   </v-app>
@@ -35,7 +40,8 @@ import Brick from "./components/Brick.vue";
 import { words as wordList } from "./data/words.js";
 import { useGrid } from "./composables/useGrid.js";
 
-const words = ref(wordList);
+const count = ref(wordList.length);
+const words = computed(() => wordList.slice(0, count.value));
 const containerRef = ref(null);
 const { columns, brickSize, fontSize, gap } = useGrid(words, containerRef);
 
@@ -58,10 +64,20 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  color: #555;
+  font-size: 0.9rem;
+}
+
 .stage {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: #e0e0e0;
