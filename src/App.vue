@@ -10,6 +10,7 @@
               class="bricks-grid"
               :style="{
                 gridTemplateColumns: `repeat(${columns}, ${brickSize}px)`,
+                gridAutoRows: `${brickSize}px`,
                 gap: gap + 'px',
                 '--brick-font-size': fontSize + 'px'
               }"

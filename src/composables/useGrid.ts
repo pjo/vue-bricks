@@ -29,7 +29,7 @@ export function useGrid(
       const size = Math.floor(Math.min(maxWidth, maxHeight));
 
       const lastRowFill = N % cols === 0 ? 1 : (N % cols) / cols;
-      const score = size * (0.8 + 0.2 * lastRowFill);
+      const score = size * lastRowFill;
 
       if (score > bestScore) {
         bestScore = score;

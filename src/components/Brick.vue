@@ -17,7 +17,7 @@ withDefaults(defineProps<{
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 1rem;
+  padding: max(4px, 8%);
   background: #f2f2f2;
   border-radius: 8px;
   text-align: center;
@@ -31,7 +31,8 @@ withDefaults(defineProps<{
 }
 
 .brick--square {
-  aspect-ratio: 1 / 1;
+  height: 100%;
   min-height: unset;
+  overflow: hidden;
 }
 </style>
