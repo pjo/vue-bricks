@@ -2,13 +2,15 @@ import { ref, nextTick, onMounted, onBeforeUnmount } from "vue";
 
 const GAP = 16; // px
 
-export function useGrid(words) {
+export function useGrid(words, containerRef) {
   const columns = ref(1);
   const brickSize = ref(100);
 
   function calculateGrid() {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
+    const el = containerRef.value;
+    if (!el) return;
+    const vw = el.clientWidth;
+    const vh = el.clientHeight;
     const N = words.value.length;
 
     let bestSize = 0;
@@ -30,19 +32,18 @@ export function useGrid(words) {
     brickSize.value = bestSize;
   }
 
-  let resizeTimer;
-  function handleResize() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => nextTick(calculateGrid), 100);
-  }
+  let observer;
 
   onMounted(() => {
-    nextTick(calculateGrid);
-    window.addEventListener("resize", handleResize);
+    nextTick(() => {
+      calculateGrid();
+      observer = new ResizeObserver(() => nextTick(calculateGrid));
+      if (containerRef.value) observer.observe(containerRef.value);
+    });
   });
 
   onBeforeUnmount(() => {
-    window.removeEventListener("resize", handleResize);
+    observer?.disconnect();
   });
 
   return { columns, brickSize, gap: GAP };

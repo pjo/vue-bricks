@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <v-container fluid class="fill-height pa-0">
-        <div class="grid-wrapper">
+        <div ref="containerRef" class="grid-wrapper">
           <div
             class="bricks-grid"
             :style="{
@@ -25,7 +25,8 @@ import { words as wordList } from "./data/words.js";
 import { useGrid } from "./composables/useGrid.js";
 
 const words = ref(wordList);
-const { columns, brickSize, gap } = useGrid(words);
+const containerRef = ref(null);
+const { columns, brickSize, gap } = useGrid(words, containerRef);
 </script>
 
 <style scoped>
