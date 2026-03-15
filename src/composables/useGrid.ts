@@ -1,13 +1,17 @@
 import { ref, watch, onBeforeUnmount } from "vue";
+import type { ComputedRef, Ref } from "vue";
 
 const GAP = 16; // px
 
-export function useGrid(words, containerRef) {
+export function useGrid(
+  words: ComputedRef<string[]>,
+  containerRef: Ref<HTMLElement | null>
+) {
   const columns = ref(1);
   const brickSize = ref(100);
   const fontSize = ref(14);
 
-  function calculateGrid(vw, vh) {
+  function calculateGrid(vw?: number, vh?: number) {
     const el = containerRef.value;
     if (!el) return;
     if (vw === undefined) vw = el.clientWidth;
@@ -39,7 +43,7 @@ export function useGrid(words, containerRef) {
     fontSize.value = Math.max(10, Math.floor(bestSize * 0.13));
   }
 
-  let observer;
+  let observer: ResizeObserver | undefined;
 
   watch(() => words.value.length, () => calculateGrid());
 

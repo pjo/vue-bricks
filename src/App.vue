@@ -34,22 +34,22 @@
   </v-app>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 import Brick from "./components/Brick.vue";
-import { words as wordList } from "./data/words.js";
-import { useGrid } from "./composables/useGrid.js";
+import { words as wordList } from "./data/words";
+import { useGrid } from "./composables/useGrid";
 
 const count = ref(wordList.length);
 const words = computed(() => wordList.slice(0, count.value));
-const containerRef = ref(null);
+const containerRef = ref<HTMLElement | null>(null);
 const { columns, brickSize, fontSize, gap } = useGrid(words, containerRef);
 
-const boxRef = ref(null);
+const boxRef = ref<HTMLElement | null>(null);
 const boxWidth = ref(Infinity);
 const isMobile = computed(() => boxWidth.value < 480);
 
-let boxObserver;
+let boxObserver: ResizeObserver | undefined;
 
 onMounted(() => {
   boxObserver = new ResizeObserver((entries) => {

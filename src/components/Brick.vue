@@ -2,16 +2,12 @@
   <div class="brick" :class="{ 'brick--square': square }">{{ label }}</div>
 </template>
 
-<script setup>
-defineProps({
-  label: {
-    type: String,
-    required: true,
-  },
-  square: {
-    type: Boolean,
-    default: true,
-  },
+<script setup lang="ts">
+withDefaults(defineProps<{
+  label: string;
+  square?: boolean;
+}>(), {
+  square: true,
 });
 </script>
 
