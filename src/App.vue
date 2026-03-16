@@ -12,7 +12,7 @@
                 gridTemplateColumns: `repeat(${columns}, ${brickSize}px)`,
                 gridAutoRows: `${brickSize}px`,
                 gap: gap + 'px',
-                '--brick-font-size': fontSize + 'px'
+                '--brick-font-size': (fontSize / 16) + 'rem'
               }"
             >
               <Brick v-for="(word, i) in words" :key="i" :label="word" />
