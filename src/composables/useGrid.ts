@@ -40,12 +40,14 @@ export function useGrid(
 
     columns.value = bestCols;
     brickSize.value = bestSize;
-    fontSize.value = Math.max(10, Math.floor(bestSize * 0.13));
+    const singleChar = words.value.every(w => w.length === 1);
+    const fontScale = singleChar ? 0.45 : 0.13;
+    fontSize.value = Math.max(10, Math.floor(bestSize * fontScale));
   }
 
   let observer: ResizeObserver | undefined;
 
-  watch(() => words.value.length, () => calculateGrid());
+  watch(() => words.value, () => calculateGrid(), { deep: false });
 
   watch(containerRef, (el) => {
     observer?.disconnect();

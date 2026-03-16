@@ -27,7 +27,15 @@
         </div>
 
         <div class="controls">
-          <input type="range" min="1" :max="wordList.length" v-model.number="count" />
+          <div class="list-toggle">
+            <button
+              v-for="(val, key) in lists"
+              :key="key"
+              :class="{ active: activeList === key }"
+              @click="activeList = key"
+            >{{ val.label }}</button>
+          </div>
+          <input type="range" min="1" :max="shuffledList.length" v-model.number="count" />
           <span>{{ count }}</span>
         </div>
       </div>
@@ -36,13 +44,37 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import Brick from "./components/Brick.vue";
-import { words as wordList } from "./data/words";
+import { words as starWarsWords, alphabet } from "./data/words";
 import { useGrid } from "./composables/useGrid";
 
-const count = ref(wordList.length);
-const words = computed(() => wordList.slice(0, count.value));
+type ListKey = "starwars" | "alphabet";
+
+const lists: Record<ListKey, { label: string; items: string[] }> = {
+  starwars: { label: "Star Wars", items: starWarsWords },
+  alphabet: { label: "Alphabet", items: alphabet },
+};
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const activeList = ref<ListKey>("starwars");
+const shuffledList = ref<string[]>(shuffle(lists["starwars"].items));
+
+watch(activeList, (key) => {
+  shuffledList.value = shuffle(lists[key].items);
+  count.value = Math.min(count.value, lists[key].items.length);
+});
+
+const count = ref(9);
+const words = computed(() => shuffledList.value.slice(0, count.value));
 const containerRef = ref<HTMLElement | null>(null);
 const { columns, brickSize, fontSize, gap } = useGrid(words, containerRef);
 
@@ -72,6 +104,27 @@ onBeforeUnmount(() => {
   margin-top: 12px;
   color: #555;
   font-size: 0.9rem;
+}
+
+.list-toggle {
+  display: flex;
+  gap: 4px;
+}
+
+.list-toggle button {
+  padding: 3px 10px;
+  border: 1px solid #999;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.list-toggle button.active {
+  background: #555;
+  color: white;
+  border-color: #555;
 }
 
 .stage {
