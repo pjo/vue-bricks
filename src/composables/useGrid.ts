@@ -40,8 +40,11 @@ export function useGrid(
 
     columns.value = bestCols;
     brickSize.value = bestSize;
-    const singleChar = words.value.every(w => w.length === 1);
-    const fontScale = singleChar ? 0.45 : 0.13;
+    const maxTokenLength = Math.max(
+      1,
+      ...words.value.flatMap(w => w.split(" ").map(t => t.length))
+    );
+    const fontScale = Math.min(0.45, 1.3 / maxTokenLength);
     fontSize.value = Math.max(10, Math.floor(bestSize * fontScale));
   }
 

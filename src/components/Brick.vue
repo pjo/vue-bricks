@@ -24,8 +24,8 @@ withDefaults(defineProps<{
   font-size: var(--brick-font-size, 1rem);
   line-height: 1.2;
   white-space: normal;
-  word-break: break-word;
-  overflow-wrap: break-word;
+  word-break: normal;
+  overflow-wrap: normal;
   box-sizing: border-box;
   min-height: 3.5rem;
 }

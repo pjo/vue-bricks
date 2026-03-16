@@ -46,14 +46,16 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import Brick from "./components/Brick.vue";
-import { words as starWarsWords, alphabet } from "./data/words";
+import { words as starWarsWords, alphabet, dinosaurs, shortWords } from "./data/words";
 import { useGrid } from "./composables/useGrid";
 
-type ListKey = "starwars" | "alphabet";
+type ListKey = "starwars" | "alphabet" | "dinosaurs" | "short";
 
 const lists: Record<ListKey, { label: string; items: string[] }> = {
   starwars: { label: "Star Wars", items: starWarsWords },
   alphabet: { label: "Alphabet", items: alphabet },
+  dinosaurs: { label: "Dinosaurs", items: dinosaurs },
+  short: { label: "Short", items: shortWords },
 };
 
 function shuffle<T>(arr: T[]): T[] {

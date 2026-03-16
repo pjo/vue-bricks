@@ -1,6 +1,47 @@
+export const shortWords: string[] = [
+  "cat", "dog", "sun", "run", "jump", "play", "blue", "fire",
+  "wind", "snow", "rain", "bird", "fish", "tree", "leaf", "rose",
+  "wave", "moon", "star", "lake", "hill", "road", "door", "ring",
+  "drum", "bell", "bone", "coin", "dust", "foam", "frog", "glow",
+  "hive", "iris", "jade", "knot", "lime", "mist", "newt", "oak",
+];
+
+export const dinosaurs: string[] = [
+  "Tyrannosaurus",
+  "Velociraptor",
+  "Triceratops",
+  "Brachiosaurus",
+  "Ankylosaurus",
+  "Stegosaurus",
+  "Diplodocus",
+  "Parasaurolophus",
+  "Pterodactyl",
+  "Spinosaurus",
+  "Iguanodon",
+  "Allosaurus",
+  "Pachycephalosaurus",
+  "Carnotaurus",
+  "Archaeopteryx",
+  "Dilophosaurus",
+  "Gallimimus",
+  "Compsognathus",
+  "Deinonychus",
+  "Baryonyx",
+  "Ceratosaurus",
+  "Edmontosaurus",
+  "Maiasaura",
+  "Oviraptor",
+  "Protoceratops",
+  "Therizinosaurus",
+  "Microraptor",
+  "Styracosaurus",
+  "Corythosaurus",
+  "Megaraptor",
+];
+
 export const alphabet: string[] = [
-  "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P",
-  "A", "S", "D", "F", "G", "H", "J", "K", "L",
+  "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "Å",
+  "A", "S", "D", "F", "G", "H", "J", "K", "L", "Ö", "Ä",
   "Z", "X", "C", "V", "B", "N", "M",
 ];
 
