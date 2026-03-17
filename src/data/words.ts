@@ -45,7 +45,7 @@ export const alphabet: string[] = [
   "Z", "X", "C", "V", "B", "N", "M",
 ];
 
-export const words: string[] = [
+export const starWarsWords: string[] = [
   "Jedi",
   "Sith",
   "Lightsaber",

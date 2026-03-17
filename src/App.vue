@@ -47,7 +47,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import Brick from "./components/Brick.vue";
-import { words as starWarsWords, alphabet, dinosaurs, shortWords } from "./data/words";
+import { starWarsWords, alphabet, dinosaurs, shortWords } from "./data/words";
 import { useGrid } from "./composables/useGrid";
 import { SpeedInsights } from "@vercel/speed-insights/vue";
 
