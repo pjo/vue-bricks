@@ -29,12 +29,11 @@
 
         <div class="controls">
           <div class="list-toggle">
-            <button
-              v-for="(val, key) in lists"
-              :key="key"
-              :class="{ active: activeList === key }"
-              @click="activeList = key"
-            >{{ val.label }}</button>
+            <select v-model="activeList" class="styled-select">
+              <option v-for="(val, key) in lists" :key="key" :value="key">
+                {{ val.label }}
+              </option>
+            </select>
           </div>
           <input type="range" min="1" :max="shuffledList.length" v-model.number="count" />
           <span>{{ count }}</span>
@@ -47,18 +46,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import Brick from "./components/Brick.vue";
-import { starWarsWords, alphabet, dinosaurs, shortWords } from "./data/words";
+import { lists, type ListKey } from "./data/words";
 import { useGrid } from "./composables/useGrid";
 import { SpeedInsights } from "@vercel/speed-insights/vue";
-
-type ListKey = "starwars" | "alphabet" | "dinosaurs" | "short";
-
-const lists: Record<ListKey, { label: string; items: string[] }> = {
-  starwars: { label: "Star Wars", items: starWarsWords },
-  alphabet: { label: "Alphabet", items: alphabet },
-  dinosaurs: { label: "Dinosaurs", items: dinosaurs },
-  short: { label: "Short", items: shortWords },
-};
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -115,19 +105,20 @@ onBeforeUnmount(() => {
   gap: 4px;
 }
 
-.list-toggle button {
-  padding: 3px 10px;
+.styled-select {
+  padding: 6px 12px;
   border: 1px solid #999;
   border-radius: 6px;
   background: white;
   cursor: pointer;
-  font-size: 0.85rem;
-  color: #555;
+  font-size: 0.9rem;
+  color: #333;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
 }
 
-.list-toggle button.active {
-  background: #555;
-  color: white;
+.styled-select:focus {
   border-color: #555;
 }
 
